@@ -1,18 +1,94 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/white.css">
+		<link rel="stylesheet" href="css/theme/serif.css">
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<h2>Phoenix z lotu ptaka</h2>
+					<h4>Krótkie wprowadzenie</h4>
+					<aside class="notes">
+						Phoenix to framework webowy, napisany w Elixirze, chodzący na ErlangVM
+					</aside>
+				</section>
+				<section>
+					<h3>Chris McChord - początki</h3>
+					<img src="pics/chris.png" />
+					<aside class="notes">
+						Chris McChord szukał alternatywy dla railsów, ponieważ nie zapewniały mu wydajności, której chciał.
+						Usłyszał o Whatsappie - 2mln połączeń w 2012 zbudowanych na Erlangu. Przy 40 rdzeniowej maszynie 96GB RAMu 40% zasobów.
+						Obecnie więcej żądań codziennie niż smsy.
+						Chris postanowił, że chce tego w aplikacjach webowych.
+					</aside>
+				</section>
+				<section>
+					<img src="pics/first.png" />
+					<aside class="notes">
+						<p>Dlaczego Chris wybrał Erlanga? Tak na prawde to ta sama domena - łączność. Wiele klientów rozmawia z serverem,
+						 który rozmawia z endpointem(endpointami).</p>
+						 <p>Jeśli dodasz serwer, zacznie wysyłać wiadomości z obecnymi serwerami - dzięki temu jeśli klient straci połączenie i zacznie rozmawiać
+							  z nowym serwerem nic nie zauważy. Dokładnie jak w telefonii - gdy jedziesz pociągiem i co chwila zmienia się źródło zasięgu.
+						 </p>
+						 <p>Erlang został zaprojektowany do takich scenariuszy i ma 30+ lat doświadczenia w produkcji</p>
+						 <p>W jaki sposób klient rozmawia z serwerem? Coś, od czego Phoenix się zaczął, czyli Phoenix Channels</p>
+					</aside>
+				</section>
+				<section id="fragments">
+					<h2>Phoenix channels</h2>
+					<ul>
+						<li class="fragment">PubSub</li>
+						<li class="fragment">Izolowane i współbieżne</li>
+						<li class="fragment">Transport Agnostic</li>
+					</ul>
+					<aside class="notes">
+						Tutaj opowiem wiecej o nich później, to ich takie najważniejsze cechy. O PubSubie mogę już powiedziec, bo to zwykly pubsub.
+						Klienci się subskrybują do serwera i nasłuchują na odpowiedź serwera. Serwer może opublikować wiadomość do wszystkich, czy też filtrować 
+						po kanałach/pokojach.
+					</aside>
+				</section>
+				<section id="fragments">
+					<h3>Izolowane i współbieżne</h3>
+					<ul>
+						<li class="fragment">Izolowane crashe</li>
+						<li class="fragment">Izolowane dane</li>
+						<li class="fragment">Brak globalnego GC i globalnych przestojów</li>
+					</ul>
+					<aside class="notes">
+						Każdy kanał jest osobnym procesem - erlangowym (jeśli Arek nie powiedział to powiedz).
+						Dzięki temu mamy izolację danych - nie ma globalnego GC - nie ma globalnych pauz.						
+					</aside>
+				</section>
+				<section data-transition="fade-in none-out">
+					<img src="pics/second.png" />
+					<aside class="notes">
+						Są transport agnostic - czyli można ich użyć dla dowolnego klienta, czy to browser, czy IE ;), czy native mobile, czy wbudowane.
+						Dowolny klient łatwo się podłączy do serwera. Tutaj też widzimy zduplikowanie serwerów i sytuację z utratą połączenia.
+					</aside>
+				</section>
+				<section data-transition="none-in fade-out">
+					<img src="pics/third.png" />
+					<aside class="notes">
+						Są transport agnostic - czyli można ich użyć dla dowolnego klienta, czy to browser, czy IE ;), czy native mobile, czy wbudowane.
+						Dowolny klient łatwo się podłączy do serwera. Tutaj też widzimy zduplikowanie serwerów i sytuację z utratą połączenia.
+					</aside>
+				</section>
 			</div>
 		</div>
+		<script src="lib/js/head.min.js"></script>
 		<script src="js\reveal.js"></script>
 		<script>
-			Reveal.initialize();
+			Reveal.initialize(
+				{
+					controls: true,
+					progress: true,
+
+					dependencies: [
+						{ src: 'plugin/notes/notes.js', async: true }
+					]
+				}
+			);
 		</script>
 	</body>
 </html>
