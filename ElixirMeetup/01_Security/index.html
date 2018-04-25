@@ -1,0 +1,154 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/serif.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h2>Elixir Security 101</h2>
+					<aside class="notes">
+						Some basics about security, mostly on Elixir, but some agnostic knowledge as well.
+					</aside>
+				</section>
+				<section>
+					<ul>
+						<li>What not to do in Elixir</li>
+						<li>Ecto</li>
+						<li>Plug</li>
+						<li>Phoenix</li>
+					</ul>
+					<aside class="notes">
+						Generally one weakness in Elixir (also in Erlang), what is Ecto and what does ecto provide,
+						What is plug and what it provides, what is phoenix and what it provides
+					</aside>
+				</section>
+				<section>
+					<h3>String.to_atom/1<br />vs<br />String.to_existing_atom/1</h3>
+					<aside class="notes">
+						Every process is isolated, so process crash should not influence the rest of the system <br />
+						Every process has it's own GC, so it's also safe. <br />
+						Atoms are represented by their values - :ok's value is :ok <br />
+						This is why atoms are global and not GC'd - kind of shared <br />
+						There's also limit on atoms - default (2^20) 1,048,576 - going over will crash the VM. <br />
+						Why crashing VM is bad? DoS + possibility on crashdump leak.
+					</aside>
+				</section>
+				<section>
+					<h3>Ecto</h3>
+					<ul>
+						<li> Strong protections by default </li>
+						<li> Problematic functions: Repo.query, Repo.fragment </li>
+						<li> Ecto.Changeset.cast <3 </li>
+						<li> transactions can lead to ACIDRain attacks </li>
+					</ul>
+					<aside class="notes">
+						Ecto is DB adapter for Elixir, but also Changeset for validations and tracking changes <br />
+						If you're not using Repo.query/Repo.fragment you're generally set - it's virtually impossible to inject sql code <br />
+						But if you're using Repo.query/Repo.fragment you're writing string - beware! Especially that fragment can send ANY expression to the db! <br />
+						Repo query("select * from users where name = $1", [name]) <br />
+						Ecto.Adapter.SQL.Query allows for passing string - try that from user input ;) <br />
+						Third parameter is a list of permitted fields - anything not listed here is ignored <br />
+					</aside>
+				</section>
+				<section>
+					<section>
+					<h3> Plug </h3>
+					<aside class="notes">
+						Plug is meant to be a generic adapter for different web servers.<br />
+						Plug also defines how differnet components should be "plugged" together<br />
+
+					</aside>
+					</section>
+					<section>
+						<h3>Plug.CSRFProtection</h3>
+						<ul>
+							<li>Compare parameter/token against token in session</li>
+							<li>Update token in session before response</li>
+							<li>GET requests are not protected</li>
+							<li>Protection agains leaking tokens to external domains</li>
+						</ul>
+						<aside class="notes">
+							CSRF - cross site request forgery - using logged user to perform actions that should not be performed <br />
+							The token may be sent by the request either via the params with key "_csrf_token" or a header with name "x-csrf-token". <br />
+							GET are not protected as they should not have side effects <br />
+							But this plug fobids any GET JavaScript that is not XHR/AJAX <br />
+							form_for/generate_token_for/1 - can be used to specify (sub)domain
+						</aside>
+					</section>
+					<section>
+						<h3>Plug.SSL</h3>
+						<ul>
+							<li>check (and update) `conn.scheme`</li>
+							<li>redirect from HTTP to HTTPS</li>
+							<li>set HSTS header on HTTPS</li>
+							<li>Be careful! HSTS will lock in HTTPS for the current domain!</li>
+						</ul>
+						<aside class="notes">
+							conn.scheme holds http/https info <br />
+							conn is a data structure for request/response <br />
+							HSTS - HTTP Strict Transport Security is a header that will prevent any communications from being sent over HTTP <br />
+							Last point can become painfull during developement/testing!
+						</aside>
+					</section>
+					<section>
+						<h3>Plug.Upload and Plug.Parsers</h3>
+						<aside class="notes">
+							Uploaded files are potentially dangerious user input - can put server and other users at risk (if files made available) <br />
+							don't trust uploader Content-Type header/file extension <br />
+							Perform scans/analytics
+						</aside>
+					</section>
+				</section>
+				<section>
+					<h3>Phoenix</h3>
+					<ul>
+						<li>Phoenix.Controller.protect_from_forgery</li>
+						<li>Phoenix.Controller.put_secure_browser_headers</li>
+						<li>Phoenix.Endpoint `force_ssl` option</li>
+						<li>`filter_parameters` Phoenix.Logger option</li>
+						<li>Remember to validate inputs on both sides!</li>
+					</ul>
+					<aside class="notes">
+						1. Basically CSRFProtection - wrapper around that <br />
+						2. Contents varies by Phoenix release, worth noting that e.g. x-frame-options - prod only The X-Frame-Options HTTP response header can be used to indicate whether or not a browser should be allowed to render a page in a frame, iframe or object . Sites can use this to avoid clickjacking attacks, by ensuring that their content is not embedded into other sites.<br />
+						3. Injects Plug.SSL, so you don't need to add Plug.SSL to your endpoint
+						4. We don't want to show passwords in log. Sunstring match, default "password", you can configure to whatever
+						5. Front only for UX, backend for security!
+
+					</aside>
+				</section>
+				<section>
+					<h3>Big thanks!</h3>
+					<ul>
+						<li>Bram Verburg</li>
+						<li>blog.voltone.net</li>
+						<li>@voltonez</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Thank you & questions</h3>
+					<p>Lukasz Skotarek</p>
+					<p>@dreat_ on Twitter</p>
+					<p>dreat on Elixir/3cityIt Slack</p>
+					<p>mail: contact@dreat.info</p>
+				</section>
+			</div>
+		</div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js\reveal.js"></script>
+		<script>
+			Reveal.initialize(
+				{
+					controls: true,
+					progress: true,
+
+					dependencies: [
+						{ src: 'plugin/notes/notes.js', async: true }
+					]
+				}
+			);
+		</script>
+	</body>
+</html>
