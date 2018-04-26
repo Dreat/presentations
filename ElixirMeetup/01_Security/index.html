@@ -14,7 +14,7 @@
 				</section>
 				<section>
 					<ul>
-						<li>What not to do in Elixir</li>
+						<li>Elixir</li>
 						<li>Ecto</li>
 						<li>Plug</li>
 						<li>Phoenix</li>
@@ -45,6 +45,7 @@
 					</ul>
 					<aside class="notes">
 						Ecto is DB adapter for Elixir, but also Changeset for validations and tracking changes <br />
+                        Binary ids to prevent info leakage
 						If you're not using Repo.query/Repo.fragment you're generally set - it's virtually impossible to inject sql code <br />
 						But if you're using Repo.query/Repo.fragment you're writing string - beware! Especially that fragment can send ANY expression to the db! <br />
 						Repo query("select * from users where name = $1", [name]) <br />
