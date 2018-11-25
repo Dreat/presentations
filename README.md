@@ -3,7 +3,7 @@
 Right now presentations require only a server that will serve http file (you can just serve them as files, but on some systems you can have problems with non-English letters - better check earlier!). Tested on http-server, but should work on any you pick.
 
 1. Go to presentation folder
-2. `http-server -a localhost`
+2. Open `index.html` in your fav browser
 3. ???
 4. Profit.
 
