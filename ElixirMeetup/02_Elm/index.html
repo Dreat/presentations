@@ -1,0 +1,99 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/serif.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h2>Short romance with Elm</h2>
+					<aside class="notes">
+						I made a project with Elm and here are my thoughts
+					</aside>
+				</section>
+				<section>
+					<h2>Bit about myself</h2>
+					<aside class="notes">
+						.net dev, elixir meetup guy, angular, bit react in past. Got some ideas now
+					</aside>
+				</section>
+				<section>
+					<h2>Bit about elm</h2>
+					<aside class="notes">
+						Functional, model update using msgs. 0.19 right now.<br />
+						Compiles to JS, can be standalone or embedded
+					</aside>
+				</section>
+				<section>
+					<h2>Syntax</h2>
+					<img src="pics/first.png" />
+					<br />
+					<img src="pics/second.png" />
+					<aside class="notes">
+						Tuple is kind of strange for alchemist, but it can get used to <br />
+						List is quite regular, but it's not a bag like in Elixir - only one type can go in <br />
+						Take a look at commas in front - it's for clear diffs :O
+					</aside>
+				</section>
+				<section>
+					<h2>Syntax - cont</h2>
+					<img src="pics/third.png" />
+					<br />
+					<img src="pics/fourth.png" />
+					<aside class="notes">
+						Type + type alias. Those are quite different. <br />
+						We define type to have possible values. Bit like enum in C#. <br />
+						So we have allowed values. Type alias is just an alias for record type - key value "object" <br />
+						We can to .name record to get that field - it's like a property function
+					</aside>
+				</section>
+				<section>
+					<h2>Case</h2>
+					<img src="pics/case.png" />
+					<aside class="notes">
+					</aside>
+				</section>
+				<section>
+					<h2>If statements</h2>
+					<img src="pics/fifth.png" />
+					<aside class="notes">
+						No "truthiness" - we need a real bool <br />
+						Because of implicit return - we need else
+					</aside>
+				</section>
+				<section>
+					<h2>Types!</h2>
+					<img src="pics/sixth.png" />
+					<aside class="notes">
+					</aside>
+				</section>
+				<section>
+					<aside class="notes">
+					</aside>
+				</section>
+				<section>
+					<h3>Thank you & questions</h3>
+					<p>Lukasz Skotarek</p>
+					<p>@dreat_ on Twitter</p>
+					<p>dreat on Elixir/3cityIt Slack</p>
+					<p>mail: contact@dreat.info</p>
+				</section>
+			</div>
+		</div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js\reveal.js"></script>
+		<script>
+			Reveal.initialize(
+				{
+					controls: true,
+					progress: true,
+
+					dependencies: [
+						{ src: 'plugin/notes/notes.js', async: true }
+					]
+				}
+			);
+		</script>
+	</body>
+</html>
