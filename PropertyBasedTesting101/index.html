@@ -39,20 +39,21 @@
 				<section>
                     <h2>Property Based Testing success stories</h2>
                     <ul>
-                            <li>Volvo</li>
-                            <li>Level DB</li>
                             <li>Riak</li>
+                            <li>Level DB</li>
+                            <li>Volvo</li>
                     </ul>
 					<aside class="notes">
-                            Volvo - errors in protocol, 200+ errors <br />
-                            Level DB - ~20 calls to make some errors <br />
                             Riak - few calls to produce errors <br />
+                            Level DB - ~20 calls to make some errors <br />
+                            Volvo - errors in protocol, 200+ errors <br />
 					</aside>
 				</section>
 				<section>
 					<h2>How many tests are enough?</h2>
 					<aside class="notes">
-						How many regular tests would we need to find LevelDB example?
+                            How many regular tests would we need to find LevelDB example? <br />
+                            LevelDB - only 2 functions - 2^n calls = 2^n unit tests
 					</aside>
 				</section>
 				<section>
@@ -66,7 +67,11 @@
 				</section>
 				<section>
 					<h2>What is property?</h2>
-					<h4>length(list) == length(reverse(list))</h4>
+                    <ul>
+					<li>length(list) == length(reverse(list))</li>
+                        <li> assert reverse(reverse(list)) equals list</li>
+                        <li> assert reverse(list)[k] equals list[length(list)-k]</li>
+                </ul>
 					<aside class="notes">
 					</aside>
 				</section>
@@ -100,11 +105,13 @@
 				</section>
                 <section>
                         <h2>Sample test</h2>
-						<h4>list <- generate_list</h4>
-						<h4>k <- generate_int(0, length(list)-1)</h4>
-                        <h4> assert length(reverse(list)) equals length(list)</h4>
-                        <h4> assert reverse(reverse(list)) equals list</h4>
-                        <h4> assert reverse(list)[k] equals list[length(list)-k]</h4>
+                        <ul>
+						<li>list <- generate_list</li>
+						<li>k <- generate_int(0, length(list)-1)</li>
+                        <li> assert length(reverse(list)) equals length(list)</li>
+                        <li> assert reverse(reverse(list)) equals list</li>
+                        <li> assert reverse(list)[k] equals list[length(list)-k]</li>
+                </ul>
                 </section>
 				<section>
 					<h2>Why should I care?</h2>
