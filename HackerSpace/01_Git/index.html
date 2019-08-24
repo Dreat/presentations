@@ -1,0 +1,118 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/serif.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h2>Why git is 👌</h2>
+					<aside class="notes">
+						before we start with git let's talk about reasons
+					</aside>
+				</section>
+				<section>
+					<section>
+					<h3>The problem</h3>
+					<aside class="notes">
+						What are we trying to achieve? We have content that we are working on and we have no idea what is the newest one, what did change etc.
+					</aside>
+					</section>
+					<section>
+						<h3>Changes</h3>
+						<aside class="notes">
+							What changed when? How
+						</aside>
+					</section>
+					<section>
+						<h3>History</h3>
+						<aside class="notes">
+						</aside>
+					</section>
+					<section>
+						<h3>Add people to the mix</h3>
+						<aside class="notes">
+							WHO changed what? WHEN someone changed something?
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>Solutions</h3>
+					</section>
+					<section>
+						<h3>zip/folders/cds</h3>
+					</section>
+					<section>
+						<h3>content tracker</h3>
+					</section>
+					<section>
+						<h3>version control system (VSC)</h3>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>Why Git (and not some other VCS)?</h3>
+					</section>
+					<section>
+						<h3>distributed</h3>
+					</section>
+					<section>
+						<h3>most popular</h3>
+					</section>
+					<section>
+						<h3>history rewrite</h3>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>How git works?</h3>
+					</section>
+					<section>
+						<h3>Hashes (SHA1/SHA256)</h3>
+					</section>
+					<section>
+						<img src="pics/Capture.PNG" style="width: 200%; height: 200%"/ >
+					</section>
+					<section> 
+						<h3>Collisions? Well yes, but no</h3>
+						<h5> ~3 * 10^49 change of collision </h5>
+						<h5> ~3 * 10^23 of stars</h5>
+						<h5> ~10^80 atoms </h5>
+					</section>
+					<section>
+						<h3>Hashes are unique universe-wise</h3>
+					</section>
+					<section>
+						<h3>Git saves snapshots of what your project was in one point in time</h3>
+					</section>
+				</section>
+				<section>
+					<h2>I'm not programmer, why should I care?</h2>
+				</section>
+				<section>
+					<h3>Thank you & questions</h3>
+					<p>Lukasz Skotarek</p>
+					<p>@dreat_ on Twitter</p>
+					<p>dreat on Slack</p>
+					<p>mail: contact@dreat.info</p>
+				</section>
+			</div>
+		</div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js\reveal.js"></script>
+		<script>
+			Reveal.initialize(
+				{
+					controls: true,
+					progress: true,
+
+					dependencies: [
+						{ src: 'plugin/notes/notes.js', async: true }
+					]
+				}
+			);
+		</script>
+	</body>
+</html>
